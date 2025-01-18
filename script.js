@@ -17,6 +17,11 @@ document.getElementById('processFilesBtn').addEventListener('click', function ()
                 }
             });
 
+            if (phoneNumbers.length === 0) {
+                alert(`Tidak ada nomor telepon ditemukan di file ${file.name}`);
+                return;
+            }
+
             // Tampilkan area untuk mengedit nomor telepon
             const textArea = document.createElement('textarea');
             textArea.classList.add('editable-area');
@@ -40,23 +45,5 @@ document.getElementById('processFilesBtn').addEventListener('click', function ()
                 const customFileName = fileNameInput.value.trim();
                 const fileName = customFileName || file.name.replace(/\.[^/.]+$/, ''); // Gunakan nama file asal jika input kosong
 
-                const blob = new Blob([editedContent], { type: 'text/plain' });
-                const url = URL.createObjectURL(blob);
-
-                // Unduh langsung
-                const downloadLink = document.createElement('a');
-                downloadLink.href = url;
-                downloadLink.download = `${fileName}.txt`;
-                downloadLink.click();
-                URL.revokeObjectURL(url);
-            });
-
-            // Tambahkan elemen ke area file
-            fileAreas.appendChild(fileNameLabel);
-            fileAreas.appendChild(fileNameInput);
-            fileAreas.appendChild(textArea);
-            fileAreas.appendChild(generateButton);
-        };
-        reader.readAsText(file);
-    });
-});
+                // Jika konten kosong, jangan lanjutkan
+                if (!editedContent) {
