@@ -65,6 +65,11 @@ button:hover {
     font-weight: bold;
 }
 
-.generate-txt-btn {
+textarea.editable-area {
+    height: 200px;
+    margin-top: 10px;
+}
+
+button.generate-txt-btn {
     margin-top: 10px;
 }
