@@ -47,3 +47,27 @@ document.getElementById('processFilesBtn').addEventListener('click', function ()
 
                 // Jika konten kosong, jangan lanjutkan
                 if (!editedContent) {
+                    alert('Tidak ada nomor yang dimasukkan!');
+                    return;
+                }
+
+                const blob = new Blob([editedContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+
+                // Unduh langsung
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                downloadLink.download = `${fileName}.txt`;
+                downloadLink.click();
+                URL.revokeObjectURL(url);
+            });
+
+            // Tambahkan elemen ke area file
+            fileAreas.appendChild(fileNameLabel);
+            fileAreas.appendChild(fileNameInput);
+            fileAreas.appendChild(textArea);
+            fileAreas.appendChild(generateButton);
+        };
+        reader.readAsText(file);
+    });
+});
